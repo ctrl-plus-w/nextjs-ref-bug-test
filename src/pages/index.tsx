@@ -64,7 +64,7 @@ const Content = ({ className }: { className: string }) => {
         ))}
       </div>
 
-      <div className={'bg-purple-500 w-80 h-80'} ref={ref}>
+      <div className={clsx(['bg-purple-500 w-80 h-80'])} ref={ref}>
         <canvas ref={canvasRef}></canvas>
       </div>
     </>
