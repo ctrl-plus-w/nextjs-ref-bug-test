@@ -1,44 +1,25 @@
+import { useCallback, useRef, useState } from 'react';
+
 import clsx from 'clsx';
-import { useCallback, useEffect, useRef, useState } from 'react';
+
+import ParticleJS from '@/classes/ParticleJS';
+
+import useFPS from '@/hooks/useFPS';
 
 const Content = ({ className }: { className: string }) => {
   const [webConsole, setWebConsole] = useState<string[]>([]);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  const particleJS = useRef<ParticleJS | null>();
+
   const log = (...messages: string[]) => {
     setWebConsole((wc) => [...wc, ...messages]);
   };
 
-  useEffect(() => {
-    if (!canvasRef.current) return;
-
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    let frame: number;
-    let i = 0;
-
-    const render = () => {
-      if (ctx) {
-        ctx.fillStyle = '#ffff00';
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillRect(0, 0, canvas.width, i);
-
-        i++;
-        if (i > canvas.height) i = 0;
-      }
-
-      frame = window.requestAnimationFrame(render);
-    };
-
-    frame = window.requestAnimationFrame(render);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, [canvasRef]);
+  useFPS(() => {
+    if (particleJS.current) particleJS.current.tick();
+  }, 60);
 
   const ref = useCallback((node: HTMLDivElement) => {
     if (!node) return;
@@ -53,6 +34,20 @@ const Content = ({ className }: { className: string }) => {
 
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
+
+      particleJS.current = new ParticleJS(canvas, {
+        particle: {
+          minSize: 4,
+          size: 11,
+          amount: 40,
+          speed: 4,
+        },
+        attract: {
+          distance: 300,
+          rotateX: 500,
+          rotateY: 500,
+        },
+      });
     }
   }, []);
 
@@ -64,7 +59,7 @@ const Content = ({ className }: { className: string }) => {
         ))}
       </div>
 
-      <div className={clsx(['bg-purple-500', className])} ref={ref}>
+      <div className={clsx(['rounded-full border border-purple-500', className])} ref={ref}>
         <canvas ref={canvasRef}></canvas>
       </div>
     </>
