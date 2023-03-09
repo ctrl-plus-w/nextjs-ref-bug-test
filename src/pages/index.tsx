@@ -64,7 +64,7 @@ const Content = ({ className }: { className: string }) => {
         ))}
       </div>
 
-      <div className={clsx(['bg-purple-500 w-80 h-80'])} ref={ref}>
+      <div className={clsx(['bg-purple-500'])} ref={ref}>
         <canvas ref={canvasRef}></canvas>
       </div>
     </>
@@ -74,7 +74,7 @@ const Content = ({ className }: { className: string }) => {
 export default function Home() {
   return (
     <div className='w-full h-full flex justify-center items-center'>
-      <Content className='' />
+      <Content className='w-80 h-80' />
     </div>
   );
 }
