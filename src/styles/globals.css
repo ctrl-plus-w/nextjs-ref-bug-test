@@ -1,39 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Space+Mono&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  html {
-    @apply bg-secondary;
-  }
-
-  /* html,
-  body,
-  #__next {
-    height: 100%;
-  } */
-
   body {
     min-height: 100vh;
-  }
-
-  #__next {
-    position: relative;
-  }
-}
-
-@layer components {
-  #accompaniement article {
-    @apply relative flex flex-col gap-2 w-full;
-  }
-
-  #accompaniement article:nth-child(even) {
-    @apply items-end self-end;
   }
 }
