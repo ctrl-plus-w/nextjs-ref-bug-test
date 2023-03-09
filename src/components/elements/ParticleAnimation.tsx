@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 import type { ReactElement } from 'react';
 
@@ -16,42 +16,25 @@ interface IProps {
 }
 
 const ParticleAnimation = ({ className }: IProps): ReactElement => {
-  const particleJS = useRef<ParticleJS | null>();
+  const [webConsole, setWebConsole] = useState<string[]>([]);
 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useFPS(() => {
-    if (particleJS.current) particleJS.current.tick();
-  });
+  const log = (...messages: string[]) => {
+    setWebConsole((_messages) => [..._messages, ...messages]);
+  };
 
   const containerRef = useCallback((container: HTMLDivElement) => {
-    const canvas = canvasRef.current;
+    if (!container) return;
 
-    if (!container || !canvas) return;
-
-    // Updating canvas size
-    let _particleJSConfig = deepCopy(particleJSConfig);
-
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-
-    particleJS.current = new ParticleJS(canvas, _particleJSConfig);
-
-    return () => {
-      particleJS.current?.clear();
-    };
+    const { width, height } = container.getBoundingClientRect();
+    log(`Current size : (${width} ${height})`);
   }, []);
 
   return (
     <div
-      className={clsx(['rounded-full', className])}
-      style={{ width: 320, height: 320 }}
+      className={clsx(['rounded-full w-80 h-80', className])}
       ref={containerRef}
     >
-      <canvas ref={canvasRef} className="border border-purple-500"></canvas>
+      {/* <canvas ref={canvasRef} className="border border-purple-500"></canvas> */}
     </div>
   );
 };
