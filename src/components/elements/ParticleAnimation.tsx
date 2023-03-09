@@ -24,33 +24,30 @@ const ParticleAnimation = ({ className }: IProps): ReactElement => {
     if (particleJS.current) particleJS.current.tick();
   });
 
-  const containerRef = useCallback(
-    (container: HTMLDivElement) => {
-      const canvas = canvasRef.current;
+  const containerRef = useCallback((container: HTMLDivElement) => {
+    const canvas = canvasRef.current;
 
-      if (!container || !canvas) return;
+    if (!container || !canvas) return;
 
-      // Updating canvas size
-      let _particleJSConfig = deepCopy(particleJSConfig);
+    // Updating canvas size
+    let _particleJSConfig = deepCopy(particleJSConfig);
 
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
 
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 
-      particleJS.current = new ParticleJS(canvas, _particleJSConfig);
+    particleJS.current = new ParticleJS(canvas, _particleJSConfig);
 
-      return () => {
-        particleJS.current?.clear();
-      };
-    },
-    [canvasRef]
-  );
+    return () => {
+      particleJS.current?.clear();
+    };
+  }, []);
 
   return (
     <div className={clsx(['rounded-full', className])} ref={containerRef}>
-      <canvas ref={canvasRef}></canvas>
+      <canvas ref={canvasRef} className="border border-purple-500"></canvas>
     </div>
   );
 };
