@@ -4,7 +4,7 @@ import ParticleAnimation from '@element/ParticleAnimation';
 
 const Home = (): ReactElement => {
   return (
-    <>
+    <main>
       <section className="flex flex-col lg:flex-row items-center justify-around min-h-screen p-8 lg:px-32 lg:py-16">
         <ParticleAnimation className="w-80 h-80 lg:w-96 lg:h-96" />
 
@@ -26,7 +26,7 @@ const Home = (): ReactElement => {
           </a>
         </div>
       </section>
-    </>
+    </main>
   );
 };
 
