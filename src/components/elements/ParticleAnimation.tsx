@@ -10,6 +10,7 @@ import { deepCopy } from '@helper/object';
 import { px } from '@helper/react';
 
 import particleJSConfig from '@config/particleJSConfig';
+import useFPS from '@hook/useFPS';
 
 interface IProps {
   className?: string;
@@ -20,23 +21,9 @@ const ParticleAnimation = ({ className }: IProps): ReactElement => {
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const frameRef = useRef<number | null>(null);
-
-  const t = useRef<number>(Date.now());
-
-  const render = () => {
-    const fpsInterval = 1000 / particleJSConfig.fps;
-
-    frameRef.current = window.requestAnimationFrame(render);
-
-    const now = Date.now();
-    const elapsed = now - t.current;
-
-    if (elapsed < fpsInterval || canvasRef.current == null) return;
-
-    t.current = now - (elapsed % fpsInterval);
-    particleJS.current?.tick();
-  };
+  useFPS(() => {
+    if (particleJS.current) particleJS.current.tick();
+  });
 
   const updateCanvasSize = (
     container: HTMLDivElement,
@@ -62,13 +49,8 @@ const ParticleAnimation = ({ className }: IProps): ReactElement => {
 
       particleJS.current = new ParticleJS(canvasRef.current, _particleJSConfig);
 
-      frameRef.current = window.requestAnimationFrame(render);
-
       return () => {
         particleJS.current?.clear();
-
-        if (frameRef.current != null)
-          window.cancelAnimationFrame(frameRef.current);
       };
     },
     [canvasRef]
