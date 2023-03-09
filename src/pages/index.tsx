@@ -6,7 +6,7 @@ import ParticleJS from '@/classes/ParticleJS';
 
 import useFPS from '@/hooks/useFPS';
 
-const Content = ({ className }: { className: string }) => {
+const ParticleAnimation = ({ className }: { className: string }) => {
   const [webConsole, setWebConsole] = useState<string[]>([]);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -68,8 +68,20 @@ const Content = ({ className }: { className: string }) => {
 
 export default function Home() {
   return (
-    <div className='w-full h-full flex justify-center items-center'>
-      <Content className='w-80 h-80' />
-    </div>
+    <section className='flex flex-col lg:flex-row items-center justify-around min-h-screen p-8 lg:px-32 lg:py-16'>
+      <ParticleAnimation className='w-80 h-80 lg:w-96 lg:h-96' />
+
+      <div className='flex flex-col items-center lg:items-end'>
+        <h1 className='text-[64px] lg:text-[78px] font-mono text-center lg:text-right mt-8'>Lukas</h1>
+
+        <p className='text-primaryLight text-center lg:text-right mt-12'>
+          Développeur web et designer indépendant <br /> Création d’applications web complexes
+        </p>
+
+        <a href='/contact' className='border-b border-primary text-primary text-xl font-mono mt-16'>
+          Se rencontrer
+        </a>
+      </div>
+    </section>
   );
 }
