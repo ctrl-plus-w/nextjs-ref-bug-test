@@ -7,7 +7,6 @@ import clsx from 'clsx';
 import ParticleJS from '@class/ParticleJS';
 
 import { deepCopy } from '@helper/object';
-import { px } from '@helper/react';
 
 import particleJSConfig from '@config/particleJSConfig';
 import useFPS from '@hook/useFPS';
@@ -25,29 +24,22 @@ const ParticleAnimation = ({ className }: IProps): ReactElement => {
     if (particleJS.current) particleJS.current.tick();
   });
 
-  const updateCanvasSize = (
-    container: HTMLDivElement,
-    canvas: HTMLCanvasElement
-  ) => {
-    const { width, height } = container.getBoundingClientRect();
-
-    canvas.style.width = px(width);
-    canvas.style.height = px(height);
-
-    canvas.width = width;
-    canvas.height = height;
-  };
-
   const containerRef = useCallback(
     (container: HTMLDivElement) => {
-      if (!container || !canvasRef.current) return;
+      const canvas = canvasRef.current;
+
+      if (!container || !canvas) return;
 
       // Updating canvas size
       let _particleJSConfig = deepCopy(particleJSConfig);
 
-      updateCanvasSize(container, canvasRef.current);
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
 
-      particleJS.current = new ParticleJS(canvasRef.current, _particleJSConfig);
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+
+      particleJS.current = new ParticleJS(canvas, _particleJSConfig);
 
       return () => {
         particleJS.current?.clear();
