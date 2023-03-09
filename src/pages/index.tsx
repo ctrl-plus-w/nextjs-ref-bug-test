@@ -1,6 +1,7 @@
+import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 
-const Content = () => {
+const Content = ({ className}: { className: string }) => {
 	
 	const [webConsole, setWebConsole] = useState<string[]>([])
 
@@ -20,7 +21,7 @@ const Content = () => {
 			{webConsole.map((msg, index) => <p key={index}>{msg}</p>)}
 		</div>
 
-		<div className="w-80 h-80 bg-purple-500" ref={ref}></div>
+		<div className={clsx(["bg-purple-500", className])} ref={ref}></div>
 	</>
 
 }
@@ -28,7 +29,7 @@ const Content = () => {
 export default function Home() {
 	return (
 		<div className="w-full h-full flex justify-center items-center">
-			<Content />;
+			<Content className="w-80 h-80" />;
 		</div>
   )
 }
