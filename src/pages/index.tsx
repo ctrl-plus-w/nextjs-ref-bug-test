@@ -6,7 +6,7 @@ const Home = (): ReactElement => {
   return (
     <main>
       <section className="flex flex-col lg:flex-row items-center justify-around min-h-screen p-8 lg:px-32 lg:py-16">
-        <ParticleAnimation className="w-80 h-80 lg:w-96 lg:h-96" />
+        <ParticleAnimation />
 
         <div className="flex flex-col items-center lg:items-end">
           <h1 className="text-[64px] lg:text-[78px] font-mono text-center lg:text-right mt-8">
