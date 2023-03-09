@@ -1,11 +1,6 @@
 import type { ReactElement } from 'react';
 
-import Head from 'next/head';
-
 import ParticleAnimation from '@element/ParticleAnimation';
-import AnchorButton from '@element/AnchorButton';
-import Separator from '@element/Separator';
-import Header from '@element/Header';
 
 const Home = (): ReactElement => {
   return (
@@ -14,19 +9,21 @@ const Home = (): ReactElement => {
         <ParticleAnimation className="w-80 h-80 lg:w-96 lg:h-96" />
 
         <div className="flex flex-col items-center lg:items-end">
-          <Header type={1} className="font-mono text-center lg:text-right mt-8">
+          <h1 className="text-[64px] lg:text-[78px] font-mono text-center lg:text-right mt-8">
             Lukas
-          </Header>
-          <Separator size="big" />
+          </h1>
 
           <p className="text-primaryLight text-center lg:text-right mt-12">
             Développeur web et designer indépendant <br /> Création
             d’applications web complexes
           </p>
 
-          <AnchorButton href="/contact" className="mt-16">
+          <a
+            href="/contact"
+            className="border-b border-primary text-primary text-xl font-mono mt-16"
+          >
             Se rencontrer
-          </AnchorButton>
+          </a>
         </div>
       </section>
     </>

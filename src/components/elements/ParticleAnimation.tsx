@@ -4,8 +4,6 @@ import type { ReactElement } from 'react';
 
 import clsx from 'clsx';
 
-import useBreakpoints from '@hook/useBreakpoints';
-
 import ParticleJS from '@class/ParticleJS';
 
 import { deepCopy } from '@helper/object';
@@ -18,8 +16,6 @@ interface IProps {
 }
 
 const ParticleAnimation = ({ className }: IProps): ReactElement => {
-  const { greaterThan } = useBreakpoints();
-
   const particleJS = useRef<ParticleJS | null>();
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -42,9 +38,7 @@ const ParticleAnimation = ({ className }: IProps): ReactElement => {
     particleJS.current?.tick();
   };
 
-  const updateCanvasSize = (
-    canvas: HTMLCanvasElement
-  ) => {
+  const updateCanvasSize = (canvas: HTMLCanvasElement) => {
     canvas.style.width = '100%';
     canvas.style.height = '100%';
 
@@ -60,15 +54,6 @@ const ParticleAnimation = ({ className }: IProps): ReactElement => {
       let _particleJSConfig = deepCopy(particleJSConfig);
 
       updateCanvasSize(canvasRef.current);
-
-      if (
-        greaterThan('lg') &&
-        _particleJSConfig.particle?.amount !== undefined &&
-        particleJSConfig.particle?.amount !== undefined
-      ) {
-        _particleJSConfig.particle.amount =
-          particleJSConfig.particle.amount * 1.3;
-      }
 
       particleJS.current = new ParticleJS(canvasRef.current, _particleJSConfig);
 
