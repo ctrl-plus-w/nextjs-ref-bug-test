@@ -21,7 +21,9 @@ const Content = ({ className}: { className: string }) => {
 			{webConsole.map((msg, index) => <p key={index}>{msg}</p>)}
 		</div>
 
-		<div className={clsx(["bg-purple-500", className])} ref={ref}></div>
+		<div className={clsx(["bg-purple-500", className])} ref={ref}>
+			<canvas></canvas>
+		</div>
 	</>
 
 }
