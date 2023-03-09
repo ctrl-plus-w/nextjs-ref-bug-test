@@ -21,7 +21,7 @@ const Content = ({ className}: { className: string }) => {
 			{webConsole.map((msg, index) => <p key={index}>{msg}</p>)}
 		</div>
 
-		<div className={clsx(["bg-purple-500", className])} ref={ref}></div>
+		<div className={clsx(["bg-purple-500 w-80 h-80", className])} ref={ref}></div>
 	</>
 
 }
@@ -29,7 +29,7 @@ const Content = ({ className}: { className: string }) => {
 export default function Home() {
 	return (
 		<div className="w-full h-full flex justify-center items-center">
-			<Content className="w-80 h-80" />;
+			<Content className="" />
 		</div>
   )
 }
